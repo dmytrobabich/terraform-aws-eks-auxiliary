@@ -45,8 +45,8 @@ variable "has_autoscaler" {
 }
 
 variable "autoscaler_custom_values" {
-  type = list(string)
-  default = []
+  type = string
+  default = ""
   description = "List of of paths to Helm values files or value itself for autoscaler"
 }
 
@@ -57,8 +57,8 @@ variable "has_aws_lb_controller" {
 }
 
 variable "aws_lb_controller_custom_values" {
-  type = list(string)
-  default = []
+  type = string
+  default = ""
   description = "List of of paths to Helm values files or value itself for aws lb controller"
 }
 
@@ -75,8 +75,8 @@ variable "has_external_dns" {
 }
 
 variable "external_dns_custom_values" {
-  type = list(string)
-  default = []
+  type        = string
+  default     = ""
   description = "List of of paths to Helm values files or value itself for external dns"
 }
 
@@ -87,8 +87,8 @@ variable "has_metrics_server" {
 }
 
 variable "metrics_server_custom_values" {
-  type = list(string)
-  default = []
+  type        = string
+  default     = ""
   description = "List of of paths to Helm values files or value itself for metric server"
 }
 
@@ -99,8 +99,8 @@ variable "has_external_secrets" {
 }
 
 variable "external_secrets_custom_values" {
-  type = list(string)
-  default = []
+  type        = string
+  default     = ""
   description = "List of of paths to Helm values files or value itself for external secrets"
 }
 
@@ -111,8 +111,8 @@ variable "has_argocd" {
 }
 
 variable "argocd_custom_values" {
-  type = list(string)
-  default = []
+  type        = string
+  default     = ""
   description = "List of of paths to Helm values files or value itself for argocd"
 }
 
@@ -122,8 +122,8 @@ variable "argocd_custom_ingress" {
 }
 
 variable "monitoring_custom_values" {
-  type = list(string)
-  default = []
+  type        = string
+  default     = ""
   description = "List of of paths to Helm values files or value itself for monitoring"
 }
 
@@ -146,8 +146,8 @@ variable "has_keda" {
 }
 
 variable "keda_custom_values" {
-  type = list(string)
-  default = []
+  type        = string
+  default     = ""
   description = "List of of paths to Helm values files or value itself for keda"
 }
 

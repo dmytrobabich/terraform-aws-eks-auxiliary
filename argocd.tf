@@ -273,7 +273,7 @@ module "argocd" {
   irsa_policy_json        = local.argocd_irsa_policy_json
   iam_openid_provider_url = var.iam_openid_provider_url
   iam_openid_provider_arn = var.iam_openid_provider_arn
-  values                  = [local.argocd_helm_values, local.argocd_default_ingress, local.argocd_custom_helm_values]
+  values                  = compact([local.argocd_helm_values, local.argocd_default_ingress, local.argocd_custom_helm_values])
 
   depends_on = [
     kubernetes_namespace_v1.general,

@@ -64,7 +64,7 @@ module "external-secrets" {
   irsa_policy_json        = local.external_secrets_irsa_policy_json
   iam_openid_provider_url = var.iam_openid_provider_url
   iam_openid_provider_arn = var.iam_openid_provider_arn
-  values                  = [local.external_secrets_helm_values, local.external_secrets_custom_helm_values]
+  values                  = compact([local.external_secrets_helm_values, local.external_secrets_custom_helm_values])
 
   depends_on = [kubernetes_namespace_v1.general]
 }
