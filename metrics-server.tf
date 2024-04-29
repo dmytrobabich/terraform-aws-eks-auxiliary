@@ -26,7 +26,7 @@ module "metrics-server" {
   chart        = "metrics-server"
   namespace    = local.metrics_server_namespace
   helm_version = local.metrics_server_helm_version
-  values       = local.metrics_server_helm_values, local.metrics_server_custom_helm_values
+  values       = [local.metrics_server_helm_values, local.metrics_server_custom_helm_values]
 
   depends_on = [kubernetes_namespace_v1.general]
 }
