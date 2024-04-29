@@ -7,6 +7,7 @@ locals {
   # K8S Service Account Name
   keda_service_account_name = "keda-sa"
   # Helm ovveride values
+  keda_custom_helm_values = var.keda_custom_values
   keda_helm_values = [<<EOF
     nodeSelector:
       pool: ${var.cluster_nodepool_name}
@@ -45,7 +46,7 @@ module "keda" {
   irsa_iam_role_name      = local.keda_irsa_iam_role_name
   iam_openid_provider_url = var.iam_openid_provider_url
   iam_openid_provider_arn = var.iam_openid_provider_arn
-  values                  = local.keda_helm_values
+  values                  = [local.keda_helm_values, local.keda_custom_helm_values]
 
   depends_on = [kubernetes_namespace_v1.general]
 }

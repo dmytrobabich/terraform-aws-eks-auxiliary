@@ -44,10 +44,22 @@ variable "has_autoscaler" {
   description = "Whether the cluster autoscaler will be installed."
 }
 
+variable "autoscaler_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for autoscaler"
+}
+
 variable "has_aws_lb_controller" {
   type        = bool
   default     = false
   description = "Whether the AWS Load Balancer Controller will be installed."
+}
+
+variable "aws_lb_controller_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for aws lb controller"
 }
 
 variable "aws_lb_controller_sg_id" {
@@ -62,10 +74,22 @@ variable "has_external_dns" {
   description = "Whether the External DNS controller will be installed."
 }
 
+variable "external_dns_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for external dns"
+}
+
 variable "has_metrics_server" {
   type        = bool
   default     = true
   description = "Whether the External Secrets controller will be installed."
+}
+
+variable "metrics_server_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for metric server"
 }
 
 variable "has_external_secrets" {
@@ -74,15 +98,33 @@ variable "has_external_secrets" {
   description = "Whether the Kubernetes Metrics Server will be installed."
 }
 
+variable "external_secrets_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for external secrets"
+}
+
 variable "has_argocd" {
   type        = bool
   default     = false
   description = "Whether argocd will be installed."
 }
 
+variable "argocd_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for argocd"
+}
+
 variable "argocd_custom_ingress" {
   type    = string
   default = ""
+}
+
+variable "monitoring_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for monitoring"
 }
 
 variable "has_monitoring" {
@@ -101,6 +143,12 @@ variable "has_keda" {
   type        = bool
   default     = false
   description = "Whether keda controller will be installed."
+}
+
+variable "keda_custom_values" {
+  type = list(string)
+  default = []
+  description = "List of of paths to Helm values files or value itself for keda"
 }
 
 # Route53

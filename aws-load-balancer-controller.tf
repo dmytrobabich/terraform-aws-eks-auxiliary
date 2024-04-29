@@ -7,6 +7,7 @@ locals {
   # K8S Service Account Name
   aws_lb_controller_service_account_name = "load-balancer-sa"
   # Helm ovveride values
+  aws_lb_controller_custom_helm_values = var.aws_lb_controller_custom_values
   aws_lb_controller_helm_values = [<<EOF
     clusterName: ${var.cluster_name}
     %{~if var.aws_lb_controller_sg_id != ""~}
@@ -260,7 +261,7 @@ module "aws-alb-ingress-controller" {
   irsa_policy_json        = local.aws_lb_controller_irsa_policy_json
   iam_openid_provider_url = var.iam_openid_provider_url
   iam_openid_provider_arn = var.iam_openid_provider_arn
-  values                  = local.aws_lb_controller_helm_values
+  values                  = [local.aws_lb_controller_helm_values,local.aws_lb_controller_custom_helm_values]
 
   depends_on = [kubernetes_namespace_v1.general]
 }

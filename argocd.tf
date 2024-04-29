@@ -10,31 +10,43 @@ locals {
   argocd_irsa_iam_role_name   = "${var.cluster_name}-argo-cd"
   argocd_ingress              = var.argocd_custom_ingress != "" ? var.argocd_custom_ingress : local.argocd_default_ingress
   argocd_default_ingress      = <<EOF
-  enabled: true
-  hosts:
-    - "argocd.${var.domain_zone}"
-  rules:
-    - https:
-        paths:
-          - backend:
-              serviceName: ssl-redirect
-              servicePort: use-annotation
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/load-balancer-name: "${lower(var.cluster_name)}-argocd-alb"
-    alb.ingress.kubernetes.io/group.name: "internal"
-    alb.ingress.kubernetes.io/ip-address-type: ipv4
-    alb.ingress.kubernetes.io/scheme: "internal"
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
-    alb.ingress.kubernetes.io/healthcheck-path: /
-    alb.ingress.kubernetes.io/success-codes: 200-399
-    alb.ingress.kubernetes.io/backend-protocol: HTTPS
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/tags: 'Environment=${var.project_env}, Managed_by=helm, Project=${var.project_name}'
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
+  server:
+    ingress:
+      enabled: true
+      hostname: "argocd.${var.domain_zone}"
+      extraPath:
+        - path: /*
+          pathType: Prefix
+          backend:
+            service:
+              name: ssl-redirect
+              port:
+                name: use-annotation
+      extraRules:
+        - https:
+            paths:
+              - backend:
+                  service
+                    name: ssl-redirect
+                    port:
+                      name: use-annotation
+      annotations:
+        kubernetes.io/ingress.class: alb
+        alb.ingress.kubernetes.io/load-balancer-name: "${lower(var.cluster_name)}-argocd-alb"
+        alb.ingress.kubernetes.io/group.name: "internal"
+        alb.ingress.kubernetes.io/ip-address-type: ipv4
+        alb.ingress.kubernetes.io/scheme: "internal"
+        alb.ingress.kubernetes.io/target-type: ip
+        alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+        alb.ingress.kubernetes.io/healthcheck-path: /
+        alb.ingress.kubernetes.io/success-codes: 200-399
+        alb.ingress.kubernetes.io/backend-protocol: HTTPS
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+        alb.ingress.kubernetes.io/tags: 'Environment=${var.project_env}, Managed_by=helm, Project=${var.project_name}'
+        alb.ingress.kubernetes.io/ssl-redirect: '443'
   EOF
   argocd_irsa_policy_json     = null
+  argocd_custom_helm_values   = var.argocd_custom_values
   argocd_helm_values = [<<EOF
     nodeSelector:
       pool: ${var.cluster_nodepool_name}
@@ -261,7 +273,7 @@ module "argocd" {
   irsa_policy_json        = local.argocd_irsa_policy_json
   iam_openid_provider_url = var.iam_openid_provider_url
   iam_openid_provider_arn = var.iam_openid_provider_arn
-  values                  = local.argocd_helm_values
+  values                  = [local.argocd_helm_values, local.argocd_default_ingress, local.argocd_custom_helm_values]
 
   depends_on = [
     kubernetes_namespace_v1.general,

@@ -7,6 +7,7 @@ locals {
   # K8S Service Account Name
   external_dns_service_account_name = "external-dns-sa"
   # Helm ovveride values
+  external_dns_custom_helm_values = var.external_dns_custom_values
   external_dns_helm_values = [<<EOF
     logLevel: debug
     txtOwnerId: ${var.r53_zone_id}
@@ -72,7 +73,7 @@ module "external-dns" {
   irsa_policy_json        = local.external_dns_irsa_policy_json
   iam_openid_provider_url = var.iam_openid_provider_url
   iam_openid_provider_arn = var.iam_openid_provider_arn
-  values                  = local.external_dns_helm_values
+  values                  = [local.external_dns_helm_values, local.external_dns_custom_helm_values]
 
   depends_on = [kubernetes_namespace_v1.general]
 }
