@@ -8,7 +8,7 @@ locals {
   external_secrets_service_account_name = "external-secrets-sa"
   # Helm ovveride values
   external_secrets_custom_helm_values = var.external_secrets_custom_values
-  external_secrets_helm_values = [<<EOF
+  external_secrets_helm_values = <<EOF
     installCRDs: true
     webhook:
       create: false
@@ -29,7 +29,6 @@ locals {
         value: ${var.cluster_nodepool_name}
         effect: NoSchedule
     EOF
-  ]
   # AWS IAM IRSA
   external_secrets_irsa_iam_role_name = "${var.cluster_name}-external-secrets-iam-role"
   external_secrets_irsa_policy_json   = <<-POLICY

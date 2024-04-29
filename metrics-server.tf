@@ -6,7 +6,7 @@ locals {
   metrics_server_namespace = kubernetes_namespace_v1.general.id
   # Helm ovveride values
   metrics_server_custom_helm_values = var.metrics_server_custom_values
-  metrics_server_helm_values = [<<EOF
+  metrics_server_helm_values = <<EOF
     nodeSelector:
       pool: ${var.cluster_nodepool_name}
     tolerations:
@@ -15,7 +15,6 @@ locals {
         value: ${var.cluster_nodepool_name}
         effect: NoSchedule
     EOF
-  ]
 }
 
 module "metrics-server" {

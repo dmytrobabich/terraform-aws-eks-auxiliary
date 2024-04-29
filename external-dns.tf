@@ -8,7 +8,7 @@ locals {
   external_dns_service_account_name = "external-dns-sa"
   # Helm ovveride values
   external_dns_custom_helm_values = var.external_dns_custom_values
-  external_dns_helm_values = [<<EOF
+  external_dns_helm_values = <<EOF
     logLevel: debug
     txtOwnerId: ${var.r53_zone_id}
     extraArgs:
@@ -29,7 +29,6 @@ locals {
       annotations:
         eks.amazonaws.com/role-arn: ${try(module.external-dns[0].irsa_role_arn, "")}
     EOF
-  ]
   # AWS IAM IRSA
   external_dns_irsa_iam_role_name = "${var.cluster_name}-external-dns-iam-role"
   external_dns_irsa_policy_json   = <<-POLICY

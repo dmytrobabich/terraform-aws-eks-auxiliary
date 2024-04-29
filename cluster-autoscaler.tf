@@ -8,7 +8,7 @@ locals {
   cluster_autoscaler_service_account_name = "autoscaler-sa"
   # Helm ovveride values
   cluster_autoscaler_custom_helm_values = var.autoscaler_custom_values
-  cluster_autoscaler_helm_values = [<<EOF
+  cluster_autoscaler_helm_values = <<EOF
     autoDiscovery:
       clusterName: ${var.cluster_name}
     awsRegion: ${var.aws_region}
@@ -29,7 +29,6 @@ locals {
           eks.amazonaws.com/role-arn: ${try(module.cluster-autoscaler[0].irsa_role_arn, "")}
           
     EOF
-  ]
   # AWS IAM IRSA
   cluster_autoscaler_irsa_iam_role_name = "${var.cluster_name}-cluster-autoscaler-iam-role"
   cluster_autoscaler_irsa_policy_json   = <<-EOF

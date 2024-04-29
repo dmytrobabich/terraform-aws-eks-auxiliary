@@ -47,7 +47,7 @@ locals {
   EOF
   argocd_irsa_policy_json     = null
   argocd_custom_helm_values   = var.argocd_custom_values
-  argocd_helm_values = [<<EOF
+  argocd_helm_values = <<EOF
     nodeSelector:
       pool: ${var.cluster_nodepool_name}
     tolerations:
@@ -257,7 +257,6 @@ locals {
         defaultTriggers: |
           - on-sync-status-unknown
   EOF
-  ]
 }
 
 module "argocd" {

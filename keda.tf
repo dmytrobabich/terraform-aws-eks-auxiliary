@@ -8,7 +8,7 @@ locals {
   keda_service_account_name = "keda-sa"
   # Helm ovveride values
   keda_custom_helm_values = var.keda_custom_values
-  keda_helm_values = [<<EOF
+  keda_helm_values = <<EOF
     nodeSelector:
       pool: ${var.cluster_nodepool_name}
     tolerations:
@@ -29,7 +29,6 @@ locals {
       operator:
         enabled: false
     EOF
-  ]
   # AWS IAM IRSA
   keda_irsa_iam_role_name = "${var.cluster_name}-keda-iam-role"
 }

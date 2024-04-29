@@ -8,7 +8,7 @@ locals {
   aws_lb_controller_service_account_name = "load-balancer-sa"
   # Helm ovveride values
   aws_lb_controller_custom_helm_values = var.aws_lb_controller_custom_values
-  aws_lb_controller_helm_values = [<<EOF
+  aws_lb_controller_helm_values = <<EOF
     clusterName: ${var.cluster_name}
     %{~if var.aws_lb_controller_sg_id != ""~}
     backendSecurityGroup: ${var.aws_lb_controller_sg_id}
@@ -27,7 +27,6 @@ locals {
         eks.amazonaws.com/role-arn: ${try(module.aws-alb-ingress-controller[0].irsa_role_arn, "")}
     vpcId: ${var.vpc_id}
     EOF
-  ]
   # AWS IAM IRSA
   aws_lb_controller_irsa_iam_role_name = "${var.cluster_name}-aws-alb-ingress-controller-iam-role"
   aws_lb_controller_irsa_policy_json   = <<-EOF
