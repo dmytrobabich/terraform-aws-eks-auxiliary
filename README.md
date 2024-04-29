@@ -52,9 +52,9 @@ Reference values could be found at [examples directory](examples).
 | iam_openid_provider_url | The URL of the IAM OIDC identity provider for the cluster. | `string` | n/a | yes |
 | vpc_id | The ID of the Virtual Private Cloud (VPC) where resources will be deployed. | `string` | n/a | yes |
 | argocd_custom_ingress | n/a | `string` | `""` | no |
-| argocd_custom_values | List of of paths to Helm values files or value itself for argocd | `list(string)` | `[]` | no |
-| autoscaler_custom_values | List of of paths to Helm values files or value itself for autoscaler | `list(string)` | `[]` | no |
-| aws_lb_controller_custom_values | List of of paths to Helm values files or value itself for aws lb controller | `list(string)` | `[]` | no |
+| argocd_custom_values | List of of paths to Helm values files or value itself for argocd | `string` | `""` | no |
+| autoscaler_custom_values | List of of paths to Helm values files or value itself for autoscaler | `string` | `""` | no |
+| aws_lb_controller_custom_values | List of of paths to Helm values files or value itself for aws lb controller | `string` | `""` | no |
 | aws_lb_controller_sg_id | Explicitly mention the AWS SG ID to work with. If not mentioned, the controller creates the one automatically. | `string` | `""` | no |
 | backup_cron | Backup job run period in crontab format. Default run is daily 1 AM | `string` | `"0 1 * * *"` | no |
 | cluster_nodepool_name | The nodepool name in the Amazon EKS cluster to install all the controllers. | `string` | `"system"` | no |
@@ -62,8 +62,8 @@ Reference values could be found at [examples directory](examples).
 | destination_s3_name_prefix | n/a | `string` | `"argocd"` | no |
 | domain_zone | The domain zone associated with the Route 53 hosted zone. | `string` | `""` | no |
 | enable_backup | Enable backup for the ArgoCD | `bool` | `false` | no |
-| external_dns_custom_values | List of of paths to Helm values files or value itself for external dns | `list(string)` | `[]` | no |
-| external_secrets_custom_values | List of of paths to Helm values files or value itself for external secrets | `list(string)` | `[]` | no |
+| external_dns_custom_values | List of of paths to Helm values files or value itself for external dns | `string` | `""` | no |
+| external_secrets_custom_values | List of of paths to Helm values files or value itself for external secrets | `string` | `""` | no |
 | has_argocd | Whether argocd will be installed. | `bool` | `false` | no |
 | has_autoscaler | Whether the cluster autoscaler will be installed. | `bool` | `false` | no |
 | has_aws_lb_controller | Whether the AWS Load Balancer Controller will be installed. | `bool` | `false` | no |
@@ -72,10 +72,10 @@ Reference values could be found at [examples directory](examples).
 | has_keda | Whether keda controller will be installed. | `bool` | `false` | no |
 | has_metrics_server | Whether the External Secrets controller will be installed. | `bool` | `true` | no |
 | has_monitoring | Whether monitoring components will be installed. | `bool` | `false` | no |
-| keda_custom_values | List of of paths to Helm values files or value itself for keda | `list(string)` | `[]` | no |
-| metrics_server_custom_values | List of of paths to Helm values files or value itself for metric server | `list(string)` | `[]` | no |
+| keda_custom_values | List of of paths to Helm values files or value itself for keda | `string` | `""` | no |
+| metrics_server_custom_values | List of of paths to Helm values files or value itself for metric server | `string` | `""` | no |
 | monitoring_config | Configuration map for the monitoring will be installed. | `any` | `{}` | no |
-| monitoring_custom_values | List of of paths to Helm values files or value itself for monitoring | `list(string)` | `[]` | no |
+| monitoring_custom_values | List of of paths to Helm values files or value itself for monitoring | `string` | `""` | no |
 | notification_slack_token_secret | AWS Secret manager key to keep a slack token | `string` | `""` | no |
 | project_env | Project environment | `string` | `""` | no |
 | project_name | Project name | `string` | `""` | no |
