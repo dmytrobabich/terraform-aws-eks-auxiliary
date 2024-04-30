@@ -26,7 +26,7 @@ locals {
         - https:
             paths:
               - backend:
-                  service
+                  service:
                     name: ssl-redirect
                     port:
                       name: use-annotation
@@ -68,8 +68,6 @@ locals {
         name: ${local.argocd_service_account_name}
         annotations:
           eks.amazonaws.com/role-arn: ${try(module.argocd[0].irsa_role_arn, "")}
-      ingress:
-      ${indent(6, local.argocd_ingress)}
     configs:
       cm:
         exec.enabled: "true"
