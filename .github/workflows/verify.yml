@@ -84,3 +84,4 @@ jobs:
           workflow_file_name: ${{ secrets.TESTING_WORKFLOW_FILE }}
           github_token: ${{ secrets.TESTING_PAT }}
           client_payload: '{"inputs": {"ref": "${{ env.BRANCH_NAME }}"}}'
+          ref: "feature/multibranching"
